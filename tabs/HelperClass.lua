@@ -1,6 +1,6 @@
 
 
--- Created by: Alessandro Iaderosa
+-- Created by: Mr. Coxall 
 -- Created on: Nov 2015
 -- Created for: ICS2O
 -- This is a collection of classes and a scene management system, 

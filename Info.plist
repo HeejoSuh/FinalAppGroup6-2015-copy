@@ -7,9 +7,9 @@
 	<key>Buffer Order</key>
 	<array>
 		<string>Main</string>
-		<string>HelperClass</string>
 		<string>MainScene</string>
 		<string>SplashScreenScene</string>
+		<string>HelperClass</string>
 	</array>
 	<key>Description</key>
 	<string>No description available</string>
