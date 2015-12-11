@@ -17,7 +17,7 @@ function setup()
     -- create the scenes
     Scene("splash", SplashScreenScene)
     Scene("play", MainScene)
-    
+    Scene("tutorial", TutaorialScene)
     Scene.Change("splash")
 end
 
