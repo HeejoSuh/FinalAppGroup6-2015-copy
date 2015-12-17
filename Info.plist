@@ -7,11 +7,23 @@
 	<key>Buffer Order</key>
 	<array>
 		<string>Main</string>
-		<string>MainScene</string>
 		<string>SplashScreenScene</string>
+		<string>GameLogoScene</string>
+		<string>MainScene</string>
+		<string>SettingsScene</string>
+		<string>CreditsScene</string>
+		<string>StroreScene</string>
+		<string>IncorrectScene</string>
+		<string>TutorialScene</string>
+		<string>WorldScene</string>
+		<string>EasyWorldScene</string>
+		<string>MediumWorldScene</string>
+		<string>HardWorldScene</string>
 		<string>HelperClass</string>
 	</array>
 	<key>Description</key>
 	<string>No description available</string>
+	<key>Icon</key>
+	<string>Icon.png</string>
 </dict>
 </plist>

@@ -1,7 +1,7 @@
+-- HelperClass
 
-
--- Created by: Mr. Coxall 
--- Created on: Nov 2015
+-- Created by: Mr Coxall
+-- Created on: Nov 2014
 -- Created for: ICS2O
 -- This is a collection of classes and a scene management system, 
 -- to help in the aid of coding.
@@ -19,22 +19,14 @@
 
 Button = class()
 
-function Button:init(buttonImage, buttonPosition, buttonScaleSize)
-    -- accepts the button image, location and scale to draw it
+function Button:init(buttonImage, buttonPosition)
+    -- accepts the button image and location to draw it
     
     self.buttonImage = buttonImage
     self.buttonLocation = buttonPosition
-    self.buttonScaleSize = buttonScaleSize or 1.0
     
-    self.buttonImageSize = vec2(spriteSize(self.buttonImage))
-    -- resize the button to new size (or scale by 1.0 if no scale given!)
-    if not(self.buttonScaleSize == 1.0) then
-        self.buttonImage = resizeImage(self.buttonImage,(self.buttonScaleSize*self.buttonImageSize.x),(self.buttonScaleSize*self.buttonImageSize.y)) 
-        -- now rest button image size
-        self.buttonImageSize = vec2(spriteSize(self.buttonImage))  
-    end
     self.buttonTouchScale = 1.15
-    --self.buttonImageSize = vec2(spriteSize(self.buttonImage))    
+    self.buttonImageSize = vec2(spriteSize(self.buttonImage))    
     self.currentButtonImage = self.buttonImage
     self.buttonTouchedImage = resizeImage(self.buttonImage, (self.buttonImageSize.x*self.buttonTouchScale), (self.buttonImageSize.y*self.buttonTouchScale))   
     self.selected = false
@@ -136,7 +128,7 @@ function SpriteObject:init(objectImage, objectStartPosition, objectID)
     
     self.objectCurrentLocation = self.objectStartLocation
     self.objectImageSize = vec2(spriteSize(self.objectImage))
-    --self.selected = false
+    self.selected = false
     self.dragOffset = vec2(0,0)
     self.draggable = true
     -- yes, the following does need to be global to the entire program
@@ -168,6 +160,9 @@ function SpriteObject:touched(touch)
     -- local varaibles
     local currentTouchPosition = vec2(touch.x, touch.y)
     
+    -- reset touching variable to false
+    self.selected = false
+    
     if (touch.state == BEGAN and self.draggable == true) then
         if( (self.objectCurrentLocation.x - self.objectImageSize.x/2) < currentTouchPosition.x and
             (self.objectCurrentLocation.x + self.objectImageSize.x/2) > currentTouchPosition.x and
@@ -198,6 +193,19 @@ function SpriteObject:touched(touch)
     
     if (touch.state == ENDED and self.draggable == true) then
         DRAGGING_OBJECT_MOVING = nil   
+    end
+    
+    -- this checks for if you have just touched the image
+    -- you will have to release and re-touch for this to be activated again
+    if (touch.state == BEGAN) then
+        if( (self.objectCurrentLocation.x - self.objectCurrentLocation.x/2) < currentTouchPosition.x and
+            (self.objectCurrentLocation.x + self.objectCurrentLocation.x/2) > currentTouchPosition.x and
+            (self.objectCurrentLocation.y - self.objectCurrentLocation.y/2) < currentTouchPosition.y and
+            (self.objectCurrentLocation.y + self.objectCurrentLocation.y/2) > currentTouchPosition.y ) then
+        
+            self.selected = true
+            --print("Activated button")
+        end
     end
 end
 
@@ -272,62 +280,4 @@ Scene.OrientationChanged = function()
    if (scenes[currentScene].orientationChanged) then
        scenes[currentScene]:orientationChanged()
    end
-end
-
-
--- Simulates the use of Game Center, so you can actually write the calls in Codea and still test on the iPad
-
-if (DEBUG_GAMECENTER == true) then
-        
-    function GameCenterClass()
-        -- the new instance
-        local self = {          
-        }
-
-        function self.enabled()
-            -- simulates that Game Center is logged in
-            
-            return true
-        end
-        
-        function self.showLeaderboards(leaderboardID)
-            -- Show leaderboards
-            
-            if (leaderboardID == nil) then
-                alert("Game Center leaderboard screen will pop up.", "Game Center Simulation")
-            else
-                alert("Game Center leaderboard with ID " .. leaderboardID .. " will pop up.", "Game Center Simulation")
-            end
-        end
-        
-        function self.showAchievements()
-            -- Show achievements
-            
-            alert("Game Center achievement screen will pop up.", "Game Center Simulation") 
-        end
-        
-        function self.submitScore(score, leaderboardID)
-            -- simulates submitting a score to Game Center
-            
-            if (leaderboardID == nil) then
-                alert("Default Leaderboard updated with score " .. score, "Game Center Simulation")
-            else
-                alert("Leaderboard with ID " .. leaderboardID .. " updated with score " .. score, "Game Center Simulation")
-            end 
-        end
-
-        function self.submitAchievement(achievementID, percent)
-            -- simulates submitting an achievement to Game Center
-        
-            alert("Achievement with ID " .. achievementID .. " updated to " .. percent .. "%", "Game Center Simulation")
-        end
-
-        -- return the instance
-        return self
-    end
-   
-    -- create a global instance and call it "gamecenter"
-    -- the exact name you need to impliment when you make the changes in Xcode
-    -- but now you can do it locally :)
-    gamecenter = GameCenterClass()    
 end
