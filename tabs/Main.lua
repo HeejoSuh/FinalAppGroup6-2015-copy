@@ -8,6 +8,7 @@
 
 --global variables
 
+local numberOfStarsOwned
 
 -- Use this function to perform your initial setup
 function setup()
@@ -18,8 +19,7 @@ function setup()
     noSmooth()
     noStroke()
     pushStyle()
-    
-    
+
     
     -- create the scenes
     Scene("splash", SplashScreenScene)

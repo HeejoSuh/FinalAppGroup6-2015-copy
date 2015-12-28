@@ -6,6 +6,8 @@
 	<string>Unknown</string>
 	<key>Buffer Order</key>
 	<array>
+		<string>CollectStars</string>
+		<string>EnterName</string>
 		<string>Main</string>
 		<string>SplashScreenScene</string>
 		<string>GameLogoScene</string>
