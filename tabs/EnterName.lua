@@ -7,45 +7,7 @@
 EnterName = class()
     
 function EnterName:init()
-    words = ""
-    lastSpoken = ""
-    
-    if numberOfQuestionsGotRight> fifthPlayer.score and numberOfQuestionsGotRight<= fourthPlayer.score then
-        saveLocalData("fifthPlayer.name", theNickNamePutIn)
-        saveLocalData("fifthPlayer.score", theNickNamePutIn)
-    elseif numberOfQuestionsGotRight> fourthPlayer.score and numberOfQuestionsGotRight<=thirdPlayer.score then
-        saveLocalData("fifthPlayer.name", fourthPlayer.name)
-        saveLocalData("fifthPlayer.score", fourthPlayer.score)
-        saveLocalData("fourthPlayer.name", theNickNamePutIn)
-        saveLocalData("fourthPlayer.score", theNickNamePutIn)
-    elseif numberOfQuestionsGotRight> thirdPlayer.score and numberOfQuestionsGotRight<=secondPlayer.score then
-        saveLocalData("fifthPlayer.name", fourthPlayer.name)
-        saveLocalData("fifthPlayer.score", fourthPlayer.score)
-        saveLocalData("fourthPlayer.name", thirdPlayer.name)
-        saveLocalData("fourthPlayer.score", thirdPlayer.score)
-        saveLocalData("thirdPlayer.name", theNickNamePutIn)
-        saveLocalData("thirdPlayer.score", theNickNamePutIn)
-    elseif numberOfQuestionsGotRight> secondPlayer.score and numberOfQuestionsGotRight<=firstPlayer.score then
-         saveLocalData("fifthPlayer.name", fourthPlayer.name)
-        saveLocalData("fifthPlayer.score", fourthPlayer.score)
-        saveLocalData("fourthPlayer.name", thirdPlayer.name)
-        saveLocalData("fourthPlayer.score", thirdPlayer.score)
-        saveLocalData("thirdPlayer.name", secondPlayer.name)
-        saveLocalData("thirdPlayer.score", secondPlayer.score)
-        saveLocalData("secondPlayer.name", theNickNamePutIn)
-        saveLocalData("secondPlayer.score", numberOfQuestionsGotRight)
-    elseif numberOfQuestionsGotRight> firstPlayer.score then
-        saveLocalData("fifthPlayer.name", fourthPlayer.name)
-        saveLocalData("fifthPlayer.score", fourthPlayer.score)
-        saveLocalData("fourthPlayer.name", thirdPlayer.name)
-        saveLocalData("fourthPlayer.score", thirdPlayer.score)
-        saveLocalData("thirdPlayer.name", secondPlayer.name)
-        saveLocalData("thirdPlayer.score", secondPlayer.score)
-        saveLocalData("thirdPlayer.name", firstPlayer.name)
-        saveLocalData("thirdPlayer.score", firstPlayer.score)
-        saveLocalData("firstPlayer.name", theNickNamePutIn)
-        saveLocalData("firstPlayer.score", numberOfQuestionsGotRight)
-            end
+    words=""
     showKeyboard()
 end
 
@@ -53,8 +15,8 @@ function EnterName:keyboard(key)
     
     if key == RETURN then
         if words ~= "" then
-        theNickNamePutIn= words
-        print(theNickNamePutIn)
+        saveLocalData("bestPlayerName", words)
+        saveLocalData("bestPlayerScore", numberOfQuestionsGotRight)
         lastSpoken = words
     
         words = ""

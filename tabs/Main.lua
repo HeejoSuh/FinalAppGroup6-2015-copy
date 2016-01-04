@@ -8,8 +8,11 @@
 
 --global variables
 
-local numberOfStarsOwned
+numberOfStarsOwned= 
+bestPlayerName= nil
+bestPlayerScore= nil
 
+    
 -- Use this function to perform your initial setup
 function setup()
     
@@ -29,13 +32,18 @@ function setup()
     Scene("tutorial", TutorialScene)
     Scene("settings", SettingsScene)
     Scene("credits", CreditsScene)
-    Scene("store", StroreScene)
     Scene("world", WorldScene)
     Scene("medium", MediumWorldScene)
     Scene("easy", EasyWorldScene)
     Scene("hard", HardWorldScene)
+    Scene("getStars", StarsCollect)
+    Scene("EnterNewNickname", EnterName)
+    Scene("leaderBoard", Ranking)
     Scene.Change("splash")
     
+    --Best player information
+    bestPlayerName= readLocalData("bestPlayerName", ___)
+    bestPlayerScore= readLocalData("bestPlayerScore", ___)
 end
 
 -- This function gets called once every frame
@@ -53,3 +61,6 @@ function touched(touch)
     
     
 end
+    
+
+
