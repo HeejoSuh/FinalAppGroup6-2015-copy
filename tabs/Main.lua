@@ -7,10 +7,19 @@
 -- This is the main starting point 
 
 --global variables
+DEBUG_GAMECENTER = false
 
-numberOfStarsOwned= 
-bestPlayerName= nil
-bestPlayerScore= nil
+local levelIsUnlocked
+local levelNumber
+
+local levels={}
+local tableOfWrongAnswered={}
+local gamecenterButton
+
+numberOfQuestionsGotRight=nil --from the game played
+numberOfQuestionsGotWrong= nil --from the game played
+numberOfStarsGiven= nil  ---based on the person's score
+numberOfCoinsOwned= nil
 
     
 -- Use this function to perform your initial setup
@@ -37,13 +46,21 @@ function setup()
     Scene("easy", EasyWorldScene)
     Scene("hard", HardWorldScene)
     Scene("getStars", StarsCollect)
-    Scene("EnterNewNickname", EnterName)
+    Scene("unlock", Unlock)
     Scene("leaderBoard", Ranking)
     Scene.Change("splash")
     
-    --Best player information
-    bestPlayerName= readLocalData("bestPlayerName", ___)
-    bestPlayerScore= readLocalData("bestPlayerScore", ___)
+    levels[i]={}
+    levels[i]={1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30}
+    self.unlocked= false
+    tableOfWrongAnswered[i]={}
+    tableOfWrongAnswered[i].shapes={}
+    tableOfWrongAnswered[i].names={}
+    numberOfCoinsOwned= readGlobalData("numberOfCoinsOwned", 0)
+    
+    numberOfQuestionsGotRight=0
+    numberOfQuestionsGotWrong=0
+    numberOfStarsGiven=0
 end
 
 -- This function gets called once every frame
@@ -62,5 +79,6 @@ function touched(touch)
     
 end
     
+
 
 

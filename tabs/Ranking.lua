@@ -7,25 +7,14 @@
 
 Ranking= class()
 
+local goBackButton
+
 function Ranking:init()
 end
 
 ---draw
 function Ranking:draw()
     background(9, 209, 226, 255)
-      ---number of stars the player has achieved so far
-    fontSize (50)
-    fill(20, 29, 31, 255)
-    font("Noteworthy-Bold")
-    textMode (CENTER)
-    text("Best player is", WIDTH/2, 800)
-    text(bestPlayerScore.." questions got right", WIDTH/2+100, 300)
-    
-    fontSize (80)
-    fill(0, 0, 0, 255)
-    font("Baskerville-SemiBoldItalic")
-    text(bestPlayerName, 70, 550)
-
     goBackButton:draw()
 end
 

@@ -8,16 +8,16 @@
 	<array>
 		<string>Main</string>
 		<string>MainGamePlayscene</string>
+		<string>Ranking</string>
 		<string>SplashScreenScene</string>
 		<string>GameLogoScene</string>
-		<string>EnterName</string>
 		<string>CollectStars</string>
 		<string>MainScene</string>
 		<string>SettingsScene</string>
 		<string>CreditsScene</string>
-		<string>StroreScene</string>
 		<string>IncorrectScene</string>
 		<string>TutorialScene</string>
+		<string>Unlock</string>
 		<string>WorldScene</string>
 		<string>EasyWorldScene</string>
 		<string>MediumWorldScene</string>

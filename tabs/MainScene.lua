@@ -18,7 +18,7 @@ function MainScene:init()
 playButton = Button("Dropbox:Blue Forward Circle Button", vec2(WIDTH/2, HEIGHT/2))
 settingsButton = Button("Dropbox:Blue Settings Button", vec2(80, 80, 100, 100))
 creditsButton = Button("Dropbox:Blue Level Menu Button", vec2(950, 80, 100, 100))
-storeButton = Button("", vec2())
+storeButton = Button("Planet Cute:Character Boy", 100, HEIGHT-100)
    
     
 end
@@ -31,6 +31,7 @@ function MainScene:draw()
     playButton:draw()
     settingsButton:draw()
     creditsButton:draw()
+    storeButton:draw()
 end
 
 function MainScene:touched(touch)
@@ -48,5 +49,12 @@ function MainScene:touched(touch)
     if(creditsButton.selected == true) then
         Scene.Change("credits")
     end
-        
+    storeButton:touched(touch) 
+    if (storeButton.selected == true) then
+        -- always check to ensure Game Center is logged in
+        -- before doing a command, or the player will
+        -- get anoying warnings!
+        if (gamecenter.enabled() == true) then
+            gamecenter.showLeaderboards()
+        end
 end
