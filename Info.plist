@@ -8,11 +8,11 @@
 	<array>
 		<string>Main</string>
 		<string>MainGamePlayscene</string>
-		<string>Ranking</string>
 		<string>SplashScreenScene</string>
 		<string>GameLogoScene</string>
 		<string>CollectStars</string>
 		<string>MainScene</string>
+		<string>Ranking</string>
 		<string>SettingsScene</string>
 		<string>CreditsScene</string>
 		<string>IncorrectScene</string>

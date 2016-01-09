@@ -10,6 +10,14 @@ Ranking= class()
 local goBackButton
 
 function Ranking:init()
+    goBackButton= Button("Dropbox:Teal Back Circle Button", 200, HEIGHT-200)
+    
+    -- always check to ensure Game Center is logged in
+        -- before doing a command, or the player will
+        -- get anoying warnings!
+        if (gamecenter.enabled() == true) then
+            gamecenter.showLeaderboards()
+        end
 end
 
 ---draw

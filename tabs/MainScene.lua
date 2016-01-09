@@ -51,10 +51,6 @@ function MainScene:touched(touch)
     end
     storeButton:touched(touch) 
     if (storeButton.selected == true) then
-        -- always check to ensure Game Center is logged in
-        -- before doing a command, or the player will
-        -- get anoying warnings!
-        if (gamecenter.enabled() == true) then
-            gamecenter.showLeaderboards()
-        end
+        Scene.Change("leaderboard")
+    end
 end
