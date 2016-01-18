@@ -10,8 +10,8 @@
 		<string>MainGamePlayscene</string>
 		<string>SplashScreenScene</string>
 		<string>GameLogoScene</string>
-		<string>CollectStars</string>
 		<string>MainScene</string>
+		<string>CollectStars</string>
 		<string>Ranking</string>
 		<string>SettingsScene</string>
 		<string>CreditsScene</string>

@@ -8,24 +8,24 @@ end
 
 function CreditsScene:draw()
     -- Codea does not automatically call this method
-    background(255, 13, 0, 255)
+    background(187, 187, 187, 255)
 
     backToMainButton:draw()
     
     
-    fill(255, 255, 255, 255)
+    fill(19, 19, 19, 255)
     fontSize(100)
     font("HelveticaNeue")
-    text("Credits", 450, 668)
+    text("Credits", WIDTH/2, 668)
     fontSize(50)
-    text("People Who Helped Create This", 430, 550)
-    text("Mars", 380, 450)
-     text("Sophia", 380, 390)
-      text("Niamh", 380, 320 )
-    text("Alessandro Iaderosa", 380, 260)
-     text("Warsame Egeh",380, 190)
-    text("Ben Jenkins",380, 120)
-    text("Hejoo Suh", 380, 50)
+    text("People Who Helped Create This", WIDTH/2, 550)
+    text("Mars", WIDTH/2, 450)
+     text("Sophia", WIDTH/2, 390)
+      text("Niamh", WIDTH/2, 320 )
+     text("Warsame Egeh",WIDTH/2, 260)
+    text("Heejo Suh", WIDTH/2, 190)
+    text("Ben Jenkins",WIDTH/2, 120)
+    text("Alessandro Iaderosa", WIDTH/2, 50)
 end
 
 

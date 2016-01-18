@@ -5,35 +5,20 @@
 ---This folder unlocks a level
 
 
-
 Unlock = class()
 
-local numberOfStarsNeededToUnlockLevel
-local levelNumber
+local numberOfCoinsNeededToUnlockLevel
 local selectedLevel
-local previousLevel
 
-local questionBox
 local yesButton
 local noButton
 
 function Unlock:init()
     
     -- different costs for each level
-    if selectedLevel== easyWorld then
-        numberOfStarsNeededToUnlockLevel= selectedLevel.levelNumber*2
-    end
-    if selectedLevel== mediumWorld then
-        numberOfStarsNeededToUnlockLevel= selectedLevel.levelNumber*3
-    end
-    if selectedLevel== hardWorld then
-        numberOfStarsNeededToUnlockLevel= selectedLevel.levelNumber*4
-    end
-    previousLevel= selectedLevel.levelNumber-1
-     
-    questionBox= rect ((WIDTH/2),(HEIGHT/2), 824,568)
-    yesButton= Button("Dropbox:Yes", vec2(WIDTH/2-150, HEIGHT/2-180))
-    noButton= Button("Dropbox:No", vec2(WIDTH/2+150, HEIGHT/2-180))
+    numberOfCoinsNeededToUnlockLevel= string.format("%d", i*1.7)
+    yesButton= Button("Dropbox:Yes", vec2(WIDTH/2-150, HEIGHT/2-200))
+    noButton= Button("Dropbox:No", vec2(WIDTH/2+150, HEIGHT/2-200))
 end
 
 function Unlock:draw()
@@ -44,6 +29,14 @@ function Unlock:draw()
     textMode (CENTER)
     pushStyle ()
     rectMode(CENTER)
+    rect (WIDTH/4, HEIGHT/4, WIDTH/2, HEIGHT/2)
+    
+    fill(19, 25, 28, 255)
+    text("Do you want to", WIDTH/2, HEIGHT/2+200)
+    text("unlock this level", WIDTH/2, HEIGHT/2+100)
+    text("for"..numberOfCoinsNeededToUnlockLevel.." coins?", WIDTH/2, HEIGHT/2-30)
+    yesButton:draw()
+    noButton:draw()
 
 end
  
@@ -52,28 +45,13 @@ function Unlock:touched(touch)
     noButton:touched(touch)
     questionBox:touched(touch)
     
-    if (selectedLevel.levelIsUnlocked== true) then
-        Scene.Change("selectedLevel")
-        -- if it is not unlocked, ask if player would like to unlock level
-    elseif (selectedLevel.levelIsUnlocked== false) then
-        alert("You have not unlocked".." the previous level", "Nope!")
-        end
-    
-    if (selectedLevel.levelIsUnlocked== false) and (selectedLevel.levelIsUnlocked== true) then
-        fill(19, 25, 28, 255)
-        text("Do you want to", WIDTH/2, HEIGHT/2+250)
-        text("unlock this level", WIDTH/2, HEIGHT/2+100)
-        text("for"..numberOfStarsNeededToUnlockLevel.." coins?", WIDTH/2, HEIGHT/2)
-        yesButton:draw()
-        noButton:draw()
-    
     if noButton:touched(touch) then -- go back to main
         sound(SOUND_PICKUP, 0.3)
-        if selectedLevel==easyWorld then
+        if selectedLevel<=10 then
         Scene.Change("easyWorld")
-        elseif selectedLevel==mediumWorld then
+        elseif selectedLevel>=11 and selectedLevel<=20 then
         Scene.Change("mediumWorld")
-        elseif selectedLevel==hardWorld then
+        elseif selectedLevel>=21 then
         Scene.Change("hardWorld")
         end
         end
@@ -84,26 +62,25 @@ function Unlock:touched(touch)
         --- if enough stars
         if (numberOfCoinssOwned>=numberOfStarsNeededToUnlockLevel) then 
         (selectedLevel).levelIsUnlocked=true
-        numberOfCoinsOwned= numberOfCoinsOwned -numberOfStarsNeededToUnlockLevel
+        numberOfCoinsOwned= numberOfCoinsOwned -numberOfCoinsNeededToUnlockLevel
         alert("You unlocked this level!", "Congrats!")
-        if selectedLevel==easyWorld then
+        if selectedLevel<=10 then
         Scene.Change("easyWorld")
-        elseif selectedLevel==mediumWorld then
+        elseif selectedLevel>=11 and selectedLevel<=20 then
         Scene.Change("mediumWorld")
-        elseif selectedLevel==hardWorld then
+        elseif selectedLevel>=21 then
         Scene.Change("hardWorld")
         end
         end
         ---if not enough stars
-        elseif (numberOfCoinsOwned>=numberOfStarsNeededToUnlockLevel) then
+        elseif (numberOfCoinsOwned>=numberOfCoinsNeededToUnlockLevel) then
         alert("You do not have enough stars!", "Nope!")
-        if selectedLevel==easyWorld then
+        if selectedLevel<=10 then
         Scene.Change("easyWorld")
-        elseif selectedLevel==mediumWorld then
-        Scene.Change("mediumWorld")    
-        elseif selectedLevel==hardWorld then
+        elseif selectedLevel>=11 and selectedLevel<=20 then
+        Scene.Change("mediumWorld")
+        elseif selectedLevel>=21 then
         Scene.Change("hardWorld")
-        end
         end
     end
 end

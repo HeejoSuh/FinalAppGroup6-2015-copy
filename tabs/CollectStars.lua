@@ -38,81 +38,34 @@ function StarsCollect:init()
     settingsButton= Button("Dropbox:Teal Settings Button", vec2(WIDTH/2+300, dy-100*(numberOfQuestionsGotWrong+20)))
     levelsButton= Button("Dropbox:Teal Level Menu Button", vec2(WIDTH/2-300, dy-100*(numberOfQuestionsGotWrong+10)))
     
-    saveLocalData("highScore", numberOfQuestionsGotRight)
-    gamecenter.submitScore(math.floor(highScore), "LetterDropLeaderboard")
+    if numberOfQuestionsGotRight-numberOfQuestionsGotWrong>highScore then
+    saveLocalData("highScore", numberOfQuestionsGotRight-numberOfQuestionsGotWrong)
+    gamecenter.submitScore(math.floor(highScore), "NameThatShapeLeaderboard")
     
     --easy mode
-    if (gameMode==easy) then
-        if numberOfQuestionsGotRight<=1 then
-            numberOfCoinsGiven= 0
-            numberOfStarsGiven= 0
+    if (selectedLevel<=10) then
+        numberOfCoinsGiven= string.format("%d", (numberOfQuestionsGotRight-numberOfQuestionsGotWrong)*1.6)
+        numberOfStarsGiven= string.format("%d", (numberOfQuestionsGotRight-numberOfQuestionsGotWrong)*0.8)
         end
-        if numberOfQuestionsGotRight<=3 then
-            numberOfCoinsGiven= 2
-            numberOfStarsGiven= 1
-        end
-        if numberOfQuestionsGotRight<=4 then
-            numberOfCoinsGiven= 3
-            numberOfStarsGiven= 2
-        end
-        if numberOfQuestionsGotRight>=6 then
-            numberOfCoinsGiven= 5
-            numberOfStarsGiven= 3
-        end
-end
     
     ---medium
-    if (gameMode==normal) then
-        if numberOfQuestionsGotRight<=2 then
-            numberOfCoinsGiven= 0
-            numberOfStarsGiven= 0
+    if (selectedLevel>=11) and (selectedLevel<=20) then
+        numberOfCoinsGiven= string.format("%d", (numberOfQuestionsGotRight-numberOfQuestionsGotWrong)*1.3)
+        numberOfStarsGiven= string.format("%d", (numberOfQuestionsGotRight-numberOfQuestionsGotWrong)*0.5)
         end
-        if numberOfQuestionsGotRight<=4 then
-            numberOfCoinsGiven= 2
-            numberOfStarsGiven= 1
-        end
-        if numberOfQuestionsGotRight<=5 then
-            numberOfCoinsGiven= 3
-            numberOfStarsGiven= 2
-        end
-        if numberOfQuestionsGotRight>=7 then
-            numberOfCoinsGiven= 5
-            numberOfStarsGiven= 3
-        end
-    end
     
     ---hard
-    if (gameMode==hard) then 
-        if numberOfQuestionsGotRight<=3 then
-            numberOfCoinsGiven= 0
-            numberOfStarsGiven= 0
-        end
-        if numberOfQuestionsGotRight<=5 then
-            numberOfCoinsGiven= 2
-            numberOfStarsGiven= 1
-        end
-        if numberOfQuestionsGotRight<=6 then
-            numberOfCoinsGiven= 3
-            numberOfStarsGiven= 2
-        end
-        if numberOfQuestionsGotRight>=8 then
-            numberOfCoinsGiven= 5
-            numberOfStarsGiven= 3
-        end
-end
-    
-    -----
-    answerChosen= false --DO THIS FOR NOW
-    numberOfQuestionsGotWrong= 0 ---DO THIS FOR NOW
-    
+    if (selectedLevel>=21) then 
+        numberOfCoinsGiven= string.format("%d", (numberOfQuestionsGotRight-numberOfQuestionsGotWrong)*1.1)
+        numberOfStarsGiven= string.format("%d", (numberOfQuestionsGotRight-numberOfQuestionsGotWrong)*0.3)
+     end
+
     if (answerChosen== true) and IFITISCORRECT then
         numberOfQuestionsGotWrong= numberOfQuestionsGotWrong+1
         currentShape= CURRENTSHAPE
         table.insert(tableOfWrongAnswered.shapes, numberOfQuestionsGotWrong, currentShape)
-        currentShapeName= currentSHAPENAME
-        table.insert(tableOfWrongAnswered.names,numberOfQuestionsGotWrong, currentShape)
-        -- put inthe main game------^
-    end
+      table.insert(tableOfWrongAnswered.names,numberOfQuestionsGotWrong, currentShapeName)
+end
 end
 
 
@@ -151,6 +104,7 @@ function StarsCollect:draw()
         starBlank:draw(secondStarPosition.x,secondStarPosition.y)
         starBlank:draw(thirdStarPosition.x, thirdStarPosition.y)
         text("Good!", WIDTH/2, HEIGHT-150)
+        table.insert("stars", selectedLevel, 1)
     end
     ---two stars
     if (numberOfStarsGiven==2) then
@@ -158,27 +112,28 @@ function StarsCollect:draw()
         starFilledIn:draw(secondStarPosition.x,secondStarPosition.y)
         starBlank:draw(thirdStarPosition.x, thirdStarPosition.y)
         text("Great!", WIDTH/2, HEIGHT-150)
+        table.insert("stars", selectedLevel, 2)
     end
     ---three stars
-    if (numberOfStarsGiven==3) then
+    if (numberOfStarsGiven>=3) then
         starFilledIn:draw(firstStarPosition.x,firstStarPosition.y)
         starFilledIn:draw(secondStarPosition.x,secondStarPosition.y)
         starFilledIn:draw(thirdStarPosition.x, thirdStarPosition.y)
         text("Awesome!", WIDTH/2, HEIGHT-150)
+        table.insert("stars", selectedLevel, 3)
     end
     
      for i=1,numberOfQuestionsGotWrong do
-        sprite(tableOfWrongAnswered[i].shapes, 100, dy-100*(#numberOfQuestionsGotWrong))
-        sprite(tableOfWrongAnswered[i].names,600,dy-100*(#numberOfQuestionsGotWrong))--names
+        sprite(tableOfWrongAnswered.shapes, 100, dy-100*(#numberOfQuestionsGotWrong))
+        text(tableOfWrongAnswered.names,600,dy-100*(#numberOfQuestionsGotWrong))--names
     end
 end   
-        
     playAgainButton:draw()
     settingsButton:draw()
     levelsButton:draw()
     nextLevelButton:draw()
     
-     for i=1,(numberOfQuestionsGotWrong) do --number of wrong answers
+     for i=1,numberOfQuestionsGotWrong do --number of wrong answers
         tableOfWrongAnswered[i]:draw()
     end
 end
@@ -218,6 +173,5 @@ end
 
 function deleteData()
     ---Go to the scene where you type in the new player's name
-        numberOfCoinsGiven=0
         table.remove(tableOfWrongAnswered, all, all)
 end
